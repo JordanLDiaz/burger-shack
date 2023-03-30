@@ -8,6 +8,7 @@ export class BurgersController extends BaseController {
       .get('', this.getAll)
       .get('/:id', this.getOne)
       .post('', this.create)
+      .delete('/:id', this.deleteBurg)
   }
 
   async getAll(request, response, next) {
@@ -32,6 +33,15 @@ export class BurgersController extends BaseController {
     try {
       const newBurger = await burgersService.create(request.body)
       return response.send(newBurger)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteBurg(req, res, next) {
+    try {
+      const message = await burgersService.deleteBurg(req.params.id)
+      return res.send(message)
     } catch (error) {
       next(error)
     }

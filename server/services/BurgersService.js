@@ -20,6 +20,12 @@ class BurgersService {
     await dbContext.Burgers.push(newBurger)
     return newBurger
   }
+  async deleteBurg(id) {
+    const burger = await this.getOne(id)
+    let index = dbContext.Burgers.indexOf(burger)
+    dbContext.Burgers.splice(index, 1)
+    return `${burger.name} was deleted`
+  }
 }
 
 
